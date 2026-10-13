@@ -120,7 +120,7 @@ rlassoAutoDML.default <- function(data, L = 5, max_iter = 10,
         #rlasso(X.nl, Y.nl, intercept = FALSE)$coefficients
     } else {
       gamma_cf <- coef(glmnet::cv.glmnet(x = X.nl, y = Y.nl, nfolds = 5,
-                                            intercept = TRUE), lambda = "s.min")
+                                            intercept = TRUE), s = "lambda.min")
     }
     gamma_int <- gamma_cf[1]
     gamma_coeff <- gamma_cf[-1]
