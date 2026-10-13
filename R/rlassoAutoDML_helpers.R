@@ -2,12 +2,12 @@ two.norm <- function(x) {
   return(sqrt(x %*% x))
 }
 
-psi_tilde <- function(y, x, m, rho, gamma, debiased) {
+psi_tilde <- function(y, x, m, rho, gamma, debiased, gamma_int = 0) {
   # stage 2
   # fit alpha
   alpha_fit <- x %*% rho
-  # fit/predict gamma
-  gamma_fit <- x %*% gamma
+  # fit/predict gamma (incl. intercept)
+  gamma_fit <- gamma_int + x %*% gamma
   # fit derivative of gamma
   m_fit <- m %*% gamma
   if (debiased) {

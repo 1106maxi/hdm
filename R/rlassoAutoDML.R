@@ -122,13 +122,15 @@ rlassoAutoDML.default <- function(data, L = 5, max_iter = 10,
       gamma_coeff <- coef(glmnet::cv.glmnet(x = X.nl, y = Y.nl, nfolds = 5,
                                             intercept = TRUE), lambda = "s.min")
     }
-    
+    gamma_int <- gamma_cf[1]
+    gamma_coeff <- gamma_cf[-1]
+
     print(paste0("fold: ", l))
     
     # get stage 2 (on l)
     # psi_star
     Psi_tilde.l <- psi_tilde(Y.l, X.l, M.l, rho_hat,
-                             gamma_coeff, debiased)
+                             gamma_coeff, debiased, gamma_int)
     Psi_tilde[folds[[l]]] <- Psi_tilde.l
   }
   
