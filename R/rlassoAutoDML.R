@@ -116,10 +116,10 @@ rlassoAutoDML.default <- function(data, L = 5, max_iter = 10,
                           max_iter, prelim_quantities = prelim_quantities.nl)
     
     if (gamma_learner == "rlasso") {
-      gamma_coeff <- rlasso(X.nl, Y.nl, intercept = TRUE)$coefficients
+      gamma_cf <- rlasso(X.nl, Y.nl, intercept = TRUE)$coefficients
         #rlasso(X.nl, Y.nl, intercept = FALSE)$coefficients
     } else {
-      gamma_coeff <- coef(glmnet::cv.glmnet(x = X.nl, y = Y.nl, nfolds = 5,
+      gamma_cf <- coef(glmnet::cv.glmnet(x = X.nl, y = Y.nl, nfolds = 5,
                                             intercept = TRUE), lambda = "s.min")
     }
     gamma_int <- gamma_cf[1]
