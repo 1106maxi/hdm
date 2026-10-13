@@ -36,7 +36,8 @@
 #' @param est_type specifying the type of estimator, must either be "APD" 
 #' for average partial derivative or "ATE" for average treatment effect.
 #' @param weights weight vector - note for panel must be length (N-1)*T - because weight vector
-#' for first differenced data 
+#' for first differenced data
+#' @param verbose if TRUE (default), prints progress for each cross-fitting fold.
 #' @return an object of class \code{rlassoAutoDML} with estimated effects,
 #' standard errors and individual effects in the form of a \code{list}.
 #' @seealso rlasso
@@ -62,7 +63,7 @@ rlassoAutoDML.default <- function(data, L = 5, max_iter = 10,
                                   gamma_learner = "rlasso",
                                   est_type = NULL, prelim_est = FALSE, 
                                   weights = NULL, debiased = TRUE,
-                                  D_LB = 0, D_add = 0.2) {
+                                  D_LB = 0, D_add = 0.2, verbose = TRUE) {
   checkmate::check_subset(est_type, c("ATE", "APD"))
   if (est_type == "ATE") {
     checkmate::check_class(data, "DataATEAutoDML")
@@ -125,7 +126,7 @@ rlassoAutoDML.default <- function(data, L = 5, max_iter = 10,
     gamma_int <- gamma_cf[1]
     gamma_coeff <- gamma_cf[-1]
 
-    print(paste0("fold: ", l))
+    if (verbose) print(paste0("fold: ", l))
     
     # get stage 2 (on l)
     # psi_star
