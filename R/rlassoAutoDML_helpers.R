@@ -22,16 +22,9 @@ default_dict_ATE <- function(d, z) {
 }
 
 get_D <- function(Y, X, M, rho_hat, p) {
-  n <- nrow(X)
-  df <- matrix(0, p, n)
-  
-  for (i in 1:n){
-    df[,i] = as.numeric(X[i,]*as.vector(rho_hat %*% X[i,]) - M[i,])
-  }
-  df <- df^2
-  D2 <- rowMeans(df)
-  D <- sqrt(D2)
-  return(D) # pass around D as vector
+  alpha_hat <- as.vector(X %*% rho_hat)
+  D <- alpha_hat - M
+  return(sqrt(colMeans(D^2)))
 }
 
 #' Estimation of Riesz Representer
