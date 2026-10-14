@@ -74,8 +74,6 @@ LassoShooting.fit <- function(x, y, lambda, control = list(
         beta[j] <- 0
       }
     }
-    # Update
-    wp <- cbind(wp, beta)
     # Check termination
     if (sum(abs(beta - beta_old), na.rm = TRUE) < control$optTol) {
       break
